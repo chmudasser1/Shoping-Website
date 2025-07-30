@@ -12,7 +12,7 @@ const ItemsBlocks = () => {
 
     return (
         <div className='mx-auto px-4  bg-gray-200 pt-12'>
-            {loading && <div>Loading...</div>}
+            {loading && <div class="loader"></div>}
             {error && <div>Error: {error}</div>}
             {items && items.length > 0 ? (
                 <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
