@@ -42,8 +42,17 @@ async function getitems(req, res) {
         });
     }
 }
+async function getCatagoriesdata (req, res)  {
+    try {
+        const items = await require('../model/model.js').find({ category: req.params.category });
+        res.json(items);
+    } catch (error) {
+        res.status(500).json({ message: "Error fetching category items", error: error.message });
+    }
+}
 
 module.exports = {
     postitems,
-    getitems
+    getitems,
+    getCatagoriesdata
 };

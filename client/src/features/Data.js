@@ -13,7 +13,6 @@ export const ItemsDataFetch = createAsyncThunk('ItemsDataFetch', async () => {
 
     // Await the response to get the JSON data
     const data = await response.json();
-    console.log("data", data)
     return data;
 });
 
