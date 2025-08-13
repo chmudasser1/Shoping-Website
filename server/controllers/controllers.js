@@ -42,7 +42,7 @@ async function getitems(req, res) {
         });
     }
 }
-async function getCatagoriesdata (req, res)  {
+async function getCatagoriesdata(req, res) {
     try {
         const items = await require('../model/model.js').find({ category: req.params.category });
         res.json(items);
@@ -50,9 +50,23 @@ async function getCatagoriesdata (req, res)  {
         res.status(500).json({ message: "Error fetching category items", error: error.message });
     }
 }
+async function getItemById(req, res) {
+    try {
+        const item = await Items.findById(req.params.id);
+        if (!item) {
+            return res.status(404).json({ message: "Item not found" });
+        }
+        res.json(item);
+    }
+    catch (error) {
+        console.error("Error fetching item by ID:", error);
+        res.status(500).json({ message: "Error fetching item", error: error.message });
+    }
+}
 
 module.exports = {
     postitems,
     getitems,
-    getCatagoriesdata
+    getCatagoriesdata,
+    getItemById
 };

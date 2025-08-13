@@ -16,6 +16,23 @@ export const ItemsDataFetch = createAsyncThunk('ItemsDataFetch', async () => {
     return data;
 });
 
+//Get item by id
+export const getItemById = createAsyncThunk('getItemById', async (id) => {
+    const response = await fetch(`http://localhost:8000/store/item/${id}`, {
+        method: 'GET'
+    });
+
+    // Check if the response is ok (status in the range 200-299)
+    if (!response.ok) {
+        throw new Error('Error while fetching item by ID');
+    }
+
+    // Await the response to get the JSON data
+    const data = await response.json();
+    return data;
+}
+);
+
 // Create slice for items
 export const ItemsSlice = createSlice({
     name: 'items',
@@ -37,7 +54,29 @@ export const ItemsSlice = createSlice({
             .addCase(ItemsDataFetch.rejected, (state, action) => {
                 state.loading = false;
                 state.error = action.error.message; // Store error message
-            });
+            })
+            .addCase(getItemById.pending, (state) => {
+                state.loading = true;
+                state.error = null; // Reset error on new fetch
+            }
+            )
+            .addCase(getItemById.fulfilled, (state, action) => {
+                state.loading = false;
+                // Assuming you want to store the item by ID in the state
+                const item = action.payload;
+                const existingItemIndex = state.items.findIndex(i => i._id === item._id);
+                if (existingItemIndex >= 0) {
+                    state.items[existingItemIndex] = item; // Update existing item
+                } else {
+                    state.items.push(item); // Add new item if it doesn't exist
+                }
+            }
+            )
+            .addCase(getItemById.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message; // Store error message
+            }
+            );
     }
 });
 

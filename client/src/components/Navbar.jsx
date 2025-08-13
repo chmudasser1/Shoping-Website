@@ -2,15 +2,17 @@ import React from 'react'
 import { FaAmazon } from "react-icons/fa";
 import { CiLocationOn } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
+import { useNavigate } from 'react-router-dom';
 import { FiShoppingCart } from "react-icons/fi";
 
 const Navbar = () => {
+    const navigate = useNavigate();
     return (
         <div className='bg-[#131921]'>
             <div className='mx-auto px-4 '>
                 <div className='flex justify-between items-center text-white py-4'>
                     <div>
-                        <FaAmazon className='size-8' />
+                        <FaAmazon className='size-8' onClick={() => navigate('/')} />
                     </div>
                     <div className='flex items-center gap-1'>
                         <CiLocationOn className='size-6' />
@@ -51,7 +53,10 @@ const Navbar = () => {
                         <p className='font-semibold'>& Orders</p>
                     </div>
                     <div className='flex items-center'>
-                        <FiShoppingCart className='size-8' />
+                        <div>
+                            <h1 className='text-red-500 text-center -mb-4'>{0}</h1>
+                            <FiShoppingCart className='size-8' />
+                        </div>
                         <p>Cart</p>
                     </div>
                 </div>
