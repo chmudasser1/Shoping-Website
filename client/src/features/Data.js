@@ -33,6 +33,42 @@ export const getItemById = createAsyncThunk('getItemById', async (id) => {
 }
 );
 
+export const handleSignin = createAsyncThunk('handleSignin', async (formData) => {
+    const response = await fetch('http://localhost:8000/users/register', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+    });
+    if (!response.ok) {
+        console.log('Error while signing in:', response.statusText);
+        throw new Error('Error while signing in');
+    }
+    const data = await response.json();
+    console.log("User signed in successfully:", data);
+    return data;
+}
+);
+
+export const handleLoginin = createAsyncThunk('handleLoginin', async (formData1) => {
+    const response = await fetch('http://localhost:8000/users/login', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData1)
+    });
+    if (!response.ok) {
+        console.log('Error while logging in:', response.statusText);
+        throw new Error('Error while logging in');
+    }
+    const data = await response.json();
+    console.log("User logged in successfully:", data);
+    return data;
+}
+);
+
 // Create slice for items
 export const ItemsSlice = createSlice({
     name: 'items',
@@ -77,10 +113,48 @@ export const ItemsSlice = createSlice({
                 state.loading = false;
                 state.error = action.error.message; // Store error message
             }
+            )
+            .addCase(handleSignin.pending, (state) => {
+                state.loading = true;
+                state.error = null; // Reset error on new fetch
+            }
+            )
+            .addCase(handleSignin.fulfilled, (state, action) => {
+                state.loading = false;
+                // Assuming you want to store the user data in the state
+                const userData = action.payload;
+                // You can store it in a specific part of the state, e.g., state.user
+                state.user = userData; // Adjust according to your state structure
+            }
+            )
+            .addCase(handleSignin.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message; // Store error message
+            }
+            )
+            .addCase(handleLoginin.pending, (state) => {
+                state.loading = true;
+                state.error = null; // Reset error on new fetch
+            }
+            )
+            .addCase(handleLoginin.fulfilled, (state, action) => {
+                state.loading = false;
+                // Assuming you want to store the user data in the state
+                const userData = action.payload;
+                // You can store it in a specific part of the state, e.g., state.user
+                state.user = userData; // Adjust according to your state structure
+            }
+            )
+            .addCase(handleLoginin.rejected, (state, action) => {
+                state.loading = false;
+                state.error = action.error.message; // Store error message
+            }
             );
+
     }
 });
 // ...existing code...
+
 
 export const counterSlice = createSlice({
     name: 'counter',

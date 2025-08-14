@@ -5,6 +5,7 @@ const cors = require('cors');
 const dotenv = require('dotenv');
 const connectUserdb = require("./connection/connection.js");
 const router = require('./routers/router.js');
+const ap = require('./routers/Users.js');
 const multer = require('multer');
 
 dotenv.config();
@@ -32,6 +33,7 @@ const upload = multer({
  });
 
 app.use('/store', upload.single("image") ,router);
+app.use('/users',ap)
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
