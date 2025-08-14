@@ -41,6 +41,7 @@ export const ItemsSlice = createSlice({
         loading: false,
         error: null // Change to null to store error messages
     },
+
     extraReducers: (builder) => {
         builder
             .addCase(ItemsDataFetch.pending, (state) => {
@@ -79,6 +80,20 @@ export const ItemsSlice = createSlice({
             );
     }
 });
+// ...existing code...
+
+export const counterSlice = createSlice({
+    name: 'counter',
+    initialState: { value: 0 },
+    reducers: {
+        increment: (state) => { state.value += 1; }
+    }
+});
+
+export const { increment } = counterSlice.actions;
+export const counterReducer = counterSlice.reducer;
+
+// ...existing code...
 
 // Export the reducer
 export default ItemsSlice.reducer;

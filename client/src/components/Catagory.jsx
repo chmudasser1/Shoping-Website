@@ -16,7 +16,7 @@ const Catagory = () => {
 
   return (
     <div className='mx-auto px-4 bg-gray-200 pt-12 min-h-screen'>
-      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 ">
+      <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-6 ">
         {items.map(item => (
           <div key={item._id} className="bg-white p-4 shadow rounded" onClick={() => navigate(`/item/${item._id}`)}>
             <h3>{item.name}</h3>

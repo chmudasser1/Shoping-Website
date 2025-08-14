@@ -2,10 +2,13 @@ import React from 'react'
 import { useParams } from 'react-router-dom';
 import { useNavigate } from 'react-router-dom';
 import { useEffect, useState } from 'react';
+import { increment } from '../features/Data.js';
+import { useDispatch } from 'react-redux';
 const RenderItemByid = () => {
     const { id } = useParams();
     const [item, setItem] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
     useEffect(() => {
         fetch(`http://localhost:8000/store/item/${id}`)
             .then(res => res.json())
@@ -34,7 +37,7 @@ const RenderItemByid = () => {
                     <div>
                         <p><span className='text-xl'>price:</span> <span className='text-3xl'>{item.price}</span>$</p>
                         <div className='flex items-center justify-between pt-4'>
-                            <button className=' bg-yellow-400 hover:bg-orange-600 px-10 py-1  rounded-3xl'>Add to Cart</button>
+                            <button className=' bg-yellow-400 hover:bg-orange-600 px-10 py-1  rounded-3xl' onClick={() => dispatch(increment())}>Add to Cart</button>
                         </div>
                         <div className='flex items-center justify-between pt-2'>
                             <button className=' bg-yellow-500 hover:bg-orange-600 px-12 py-1  rounded-3xl'>Buy Now</button>

@@ -4,11 +4,20 @@ import { CiLocationOn } from "react-icons/ci";
 import { CiSearch } from "react-icons/ci";
 import { useNavigate } from 'react-router-dom';
 import { FiShoppingCart } from "react-icons/fi";
+import { useSelector, useDispatch } from 'react-redux';
+import { increment } from '../features/Data.js';
+
 
 const Navbar = () => {
     const navigate = useNavigate();
+    const value = useSelector((state) => state.counter.value);
+    const dispatch = useDispatch();
+    const HandleSignip = () => {
+        navigate('/login');
+    }
+
     return (
-        <div className='bg-[#131921]'>
+        <div className='bg-[#131921] ' >
             <div className='mx-auto px-4 '>
                 <div className='flex justify-between items-center text-white py-4'>
                     <div>
@@ -44,7 +53,7 @@ const Navbar = () => {
                             <option value="Chanies">Chanies</option>
                         </select>
                     </div>
-                    <div className='text-sm' >
+                    <div className='text-sm cursor-pointer' onClick={HandleSignip} >
                         <p className=''>Hello,Sign in</p>
                         <h1 className='font-semibold'>Accounts & Lists</h1>
                     </div>
@@ -54,7 +63,7 @@ const Navbar = () => {
                     </div>
                     <div className='flex items-center'>
                         <div>
-                            <h1 className='text-red-500 text-center -mb-4'>{0}</h1>
+                            <h1 className='text-red-500 text-center -mb-2'>{value}</h1>
                             <FiShoppingCart className='size-8' />
                         </div>
                         <p>Cart</p>

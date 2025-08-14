@@ -1,22 +1,22 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import Home from "./pages/Home";
-import Catagory from './components/Catagory';
-import Navbar from './components/Navbar';
-import Footer from './components/Footer';
-import RenderItemByid from './components/RenderItemByid';
+import Login from './pages/Login';
+import Catagories from './pages/Catagories';
+import ByidRender from './pages/ByidRender';
 
 function App() {
   return (
     <Router>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="min-h-screen">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/category/:category" element={<Catagory />} />
-          <Route path="/item/:id" element={<RenderItemByid />} />
+          <Route path="/category/:category" element={<Catagories />} />
+          <Route path="/item/:id" element={<ByidRender />} />
+          <Route path="/login" element={<Login />} />
         </Routes>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </Router>
   );
 }
